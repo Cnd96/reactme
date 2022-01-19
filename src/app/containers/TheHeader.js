@@ -1,0 +1,67 @@
+import React from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {CBreadcrumbRouter, CHeader, CHeaderBrand, CHeaderNav, CImg, CSubheader, CToggler} from '@coreui/react'
+// routes config
+import routes from '../config/routes'
+import * as Actions from '../store/actions/notebook';
+import defaultLogo from '../../assets/img/brand/logo.png';
+
+import {TheHeaderDropdown} from './index'
+import Constants from "../../utils/Constants";
+
+const TheHeader = () => {
+    const dispatch = useDispatch();
+
+    const sidebarShow = useSelector(state => state.notebook.settings.sidebarShow);
+
+    const toggleSidebar = () => {
+        const val = [true, 'responsive'].includes(sidebarShow) ? false : 'responsive';
+        dispatch(Actions.setShowSidebar(val));
+    };
+
+    const toggleSidebarMobile = () => {
+        const val = [false, 'responsive'].includes(sidebarShow) ? true : 'responsive';
+        dispatch(Actions.setShowSidebar(val));
+    };
+
+    return (
+        <CHeader withSubheader>
+            <CToggler
+                inHeader
+                className="ml-md-3 d-lg-none"
+                onClick={toggleSidebarMobile}
+            />
+            <CToggler
+                inHeader
+                className="ml-3 d-md-down-none"
+                onClick={toggleSidebar}
+            />
+            <CHeaderBrand className="mx-auto d-lg-none" to={Constants.PAGES.adminDashboard}>
+                <CImg
+                    className="c-sidebar-brand-full"
+                    // src={defaultLogo}
+                />
+            </CHeaderBrand>
+
+            <CHeaderNav className="d-md-down-none mr-auto">
+
+            </CHeaderNav>
+
+            <CHeaderNav className="px-3">
+                {/*<TheHeaderDropdownNotif/>*/}
+                {/*<TheHeaderDropdownTasks/>*/}
+                {/*<TheHeaderDropdownMssg/>*/}
+                <TheHeaderDropdown/>
+            </CHeaderNav>
+
+            <CSubheader className="px-3 justify-content-between">
+                <CBreadcrumbRouter
+                    className="border-0 c-subheader-nav m-0 px-0 px-md-3"
+                    routes={routes}
+                />
+            </CSubheader>
+        </CHeader>
+    )
+};
+
+export default TheHeader

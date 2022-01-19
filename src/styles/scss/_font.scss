@@ -1,0 +1,120 @@
+
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 500;
+}
+
+.f-no-space {
+  margin: 0;
+  padding: 0;
+}
+
+.f-light {
+  font-weight: 300 !important;
+}
+
+.f-regular {
+  font-weight: 400 !important;
+}
+
+.f-medium {
+  font-weight: 500 !important;
+}
+
+.f-semi-bold {
+  font-weight: 600 !important;
+}
+
+.f-bold {
+  font-weight: 700 !important;
+}
+
+$fontSizes: (8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 30, 31, 32, 33, 34, 35);
+
+@each $size in $fontSizes {
+  .fs-#{$size}px {
+    font-size: #{$size}px !important;
+  }
+}
+
+
+.bold-font {
+  font-weight: 700 !important;
+}
+
+.fw-500 {
+  font-weight: 500;
+}
+
+.fw-600 {
+  font-weight: 600;
+}
+
+.fw-700 {
+  font-weight: 700;
+}
+
+.semi-bold-font {
+  font-weight: 500 !important;
+}
+
+.fw-200 {
+  font-weight: 200 !important;
+}
+
+.fs-1-4 {
+  font-size: 1.4rem;
+}
+
+.fs-1-2 {
+  font-size: 1.2rem;
+}
+
+.fs-1-1 {
+  font-size: 1.1rem;
+}
+
+.fs-1 {
+  font-size: 1rem;
+}
+
+.fs-0-9 {
+  font-size: 0.9rem;
+}
+
+.fs-0-8 {
+  font-size: 0.8rem;
+}
+
+
+.fs-0-7 {
+  font-size: 0.7rem;
+}
+
+.primary-black {
+  color: #000000;
+}
+
+.primary-fc-1 {
+  color: #050505;
+}
+
+.secondary-font-color {
+  color: #616161;
+}
+
+.third-fc {
+  color: #535353;
+}
+
+.fc-4 {
+  color: #777777;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.lora-font {
+  font-family: 'Lora', serif;
+}

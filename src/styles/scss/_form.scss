@@ -1,0 +1,24 @@
+
+.formik-error-message {
+  display: block;
+  color: red;
+  position: relative;
+  top: -12px;
+}
+
+.row-button-styles {
+  margin-top: 1.7rem !important;
+}
+
+
+.required {
+  &:after {
+    font-family: FontAwesome;
+    content: "\f069";
+    color: #666674;
+    padding-left: 4px;
+    font-size: .6em;
+    position: relative;
+    top: -5px;
+  }
+}

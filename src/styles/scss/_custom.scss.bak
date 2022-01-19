@@ -1,0 +1,188 @@
+@import "role";
+@import "user";
+@import "form";
+@import "font";
+@import "flex";
+@import "margin_padding";
+@import "common";
+@import "color";
+
+/**
+Data Grid
+*/
+
+.clickable-data-row {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.main-pagination {
+  nav {
+    float: left;
+  }
+
+  div {
+    display: inline-block;
+  }
+}
+
+.color-active {
+  color: #318864;
+}
+
+.color-inactive {
+  color: #cb0e00;
+}
+
+.color-pending {
+  color: #ffc166;
+}
+
+.edited-data-row {
+  background-color: #EAEAEA;
+  color: #bd8305 !important;
+}
+
+.popup-input-wrapper {
+  position: relative;
+  cursor: pointer !important;
+
+  &:hover {
+    cursor: pointer !important;
+
+    .icon-button-indicator {
+      color: blue;
+    }
+  }
+}
+
+.card-header-custom {
+  background-color: #EBEDEF;
+}
+
+.custom-button {
+  margin: 3px;
+}
+
+#login-page {
+  position: relative;
+  height: 100vh;
+
+  //background: url("../../assets/img/background/login-background.jpg") no-repeat;
+  //background: url("../../assets/img/background/background-2.jpg") no-repeat;
+  //background: url("../../assets/img/background/background-3.jpg") no-repeat;
+  background: url("../../assets/img/background/background-002.jpg") no-repeat;
+  background-size: cover;
+
+  .powered-by {
+    font-weight: 800;
+    position: absolute;
+    bottom: 12px;
+
+    img {
+      position: relative;
+      top: -2px;
+    }
+  }
+}
+
+.main-tab-header {
+  border-bottom: 2px solid transparent;
+}
+
+.selected-tab-header {
+  border-bottom: 2px solid #3c4b64;
+}
+
+.stepper-header-btn-wrapper {
+  position: relative;
+
+  .tab-header-ok-mark {
+    color: green;
+    position: absolute;
+    top: 2px;
+  }
+}
+
+.address {
+
+}
+
+.physiotherapy-request-sub-div {
+  padding-top: 5px;
+  width: 45%;
+  height: auto;
+  border: solid 1px #222222;
+
+  .sub-topic {
+    width: 200px;
+  }
+
+  .colon {
+    margin: 1px;
+  }
+
+}
+
+.prescription-section {
+  padding: 2px;
+  border: solid 1px #222222;
+}
+
+
+.font-weight-bold {
+  font-weight: bold;
+}
+
+
+.unit-input-field {
+  background-color: unset !important;
+  border: unset !important;
+}
+
+.chart-content {
+  margin-bottom: 3%;
+  text-align: center !important;
+}
+
+.checkup-history-table {
+  th {
+    border-bottom: 1px solid #6b6d7a;
+  }
+}
+
+.medical-test-record-table {
+
+  tbody th,
+  tbody td {
+    padding-top: 1% !important;
+    padding-left: unset !important;
+    padding-right: unset !important;
+    padding-bottom: unset !important;
+
+  }
+
+  input {
+    width: 90%;
+    padding: unset !important;
+  }
+}
+
+.medical-test-tab-nav {
+  height: 8% !important;
+
+  li {
+    height: 8% !important;
+  }
+}
+
+.patient-complain-updated-row {
+  background-color: #bcbcf7 !important;
+}
+
+.pre-tag {
+  white-space: pre-wrap;
+  font-family: 'Nunito Sans', sans-serif !important;
+  font-size: 0.875rem !important;
+}

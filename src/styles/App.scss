@@ -1,0 +1,20 @@
+// If you want to override variables do it here
+@import "./scss/variables";
+// Import CoreUI styles
+@import "~@coreui/coreui/scss/coreui.scss";
+// If you want to add something do it here
+
+// Import Flag Icons Set
+@import '~flag-icon-css/css/flag-icon.min.css';
+
+// Import Font Awesome Icons Set
+@import '~font-awesome/css/font-awesome.min.css';
+
+//@import '~@codemirror/lib/codemirror.css';
+
+@import "./scss/custom";
+
+
+@import "./scss/richText";
+
+@import "./scss/table";
