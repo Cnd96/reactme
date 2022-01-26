@@ -57,7 +57,7 @@ const MedicineResult = () => {
                                     <tr>
                                         <th>Medicine</th>
                                         <th>Doses</th>
-                                        <th>Frequents</th>
+                                        <th>Frequency</th>
                                         <th>Meal Times</th>
                                         <th>Trades</th>
                                         <th>Status</th>

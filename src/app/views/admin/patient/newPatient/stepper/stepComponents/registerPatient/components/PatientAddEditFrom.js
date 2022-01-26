@@ -116,6 +116,9 @@ class PatientAddEditFrom extends Component {
             if (values.title === Constants.TITLE_CONST.MRS) {
                 values.civilStatus = Constants.CIVIL_STATUS_CONST.MARRIED
             }
+            else{
+                values.civilStatus = Constants.CIVIL_STATUS_CONST.SINGLE
+            }
         }
 
         let validate = customValidator(values, this.getValidations());
@@ -595,12 +598,12 @@ class PatientAddEditFrom extends Component {
                                             </CCol>
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
-                                                    <CLabel htmlFor="occupation">Occupation</CLabel>
+                                                    <CLabel htmlFor="occupation">Job Description</CLabel>
 
                                                     <Field
                                                         type="text"
                                                         name="occupation"
-                                                        placeholder={'Occupation'}
+                                                        placeholder={'Job Description'}
                                                         className={getInputFieldClassNames(touched.occupation, errors.occupation)}
                                                     />
                                                 </CFormGroup>
@@ -833,7 +836,7 @@ class PatientAddEditFrom extends Component {
 
                                 <div className={'privilege-main-category-section'}>
                                     <div className={'privilege-category-name'}>
-                                        <h5>Note</h5>
+                                        <h5>Comments</h5>
                                     </div>
                                     <div className={'privilege-category-section'}>
                                         <CRow>

@@ -80,7 +80,7 @@ const Prescription = React.forwardRef((props, ref) => {
                                         Meal Time
                                     </th>
                                     <th>
-                                        Frequent
+                                        Frequency
                                     </th>
                                 </tr>
                                 </thead>

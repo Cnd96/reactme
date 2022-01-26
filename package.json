@@ -87,7 +87,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://192.168.8.135:3002/",
+  "proxy": "http://192.168.8.101:3002/",
   "devDependencies": {
     "@babel/plugin-syntax-jsx": "^7.12.13"
   }

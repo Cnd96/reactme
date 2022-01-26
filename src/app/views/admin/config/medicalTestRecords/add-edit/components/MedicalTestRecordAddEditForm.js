@@ -57,7 +57,6 @@ const MedicalTestRecordAddEditForm = () => {
             status: medicalTestRecord.status ? medicalTestRecord.status : initValues.status,
             deleteMeasurementUnits:[]
         };
-        console.log(initData)
         setFormValues(initData);
     }, [dispatch, data.medicalTestRecord]);
 

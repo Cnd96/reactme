@@ -12,6 +12,11 @@ const MedicineAddEditBase = () => {
     const dispatch = useDispatch();
     const data = useSelector(({medicine}) => medicine.medicineAddEdit);
 
+    const deleteMedicine = () => {
+        let medicine = _.cloneDeep(data.medicine);
+        medicine.status = Constants.STATUS_CONST.INA;
+        dispatch(Actions.saveOrUpdateMedicine(medicine));
+    }
     const generateSaveObj = () => {
         let doseArr = [];
         let frequentArr = [];
@@ -22,10 +27,10 @@ const MedicineAddEditBase = () => {
 
         if (!_.isEmpty(data.formData.values)) {
 
-            let formDoseArray = _.uniq(data.formData.values.medicineDose.split(','));
-            let formFrequentArray = _.uniq(data.formData.values.medicineFrequent.split(','));
-            let formMealTime = _.uniq(data.formData.values.medicineMealTime.split(','));
-            let formTrades = _.uniq(data.formData.values.trade.split(','));
+            let formDoseArray = data.formData.values.medicineDoses;
+            let formFrequentArray = data.formData.values.medicineFrequents;
+            let formMealTime = data.formData.values.medicineMealTimes;
+            let formTrades = data.formData.values.trades;
 
             formDoseArray.forEach(
                 (dose, index) => {
@@ -41,9 +46,6 @@ const MedicineAddEditBase = () => {
             //Remove Does Array
             let currentDoses = getStringArrayVales(medicine.doseDTOS ? medicine.doseDTOS : [], 'dose');
             let removedDoeses = _.difference(currentDoses, formDoseArray);
-            console.log("currentDoses", currentDoses);
-            console.log("formDoseArray", formDoseArray);
-            console.log("Removed Doesea", removedDoeses);
             if (removedDoeses.length > 0) {
                 removedDoeses.forEach(element => {
                     doseArr.push(Object.assign({}, {dose: element.trim()}, {
@@ -52,7 +54,6 @@ const MedicineAddEditBase = () => {
                     }))
                 });
             }
-
 
             formFrequentArray.forEach(
                 (frequent, index) => {
@@ -68,9 +69,6 @@ const MedicineAddEditBase = () => {
             // To Remove Frequent Array
             let currentFrequents = getStringArrayVales(medicine.frequentDTOS ? medicine.frequentDTOS : [], 'frequent');
             let removedFrequents = _.difference(currentFrequents, formFrequentArray);
-            console.log("currentFrequents", currentFrequents);
-            console.log("formFrequentArray", formFrequentArray);
-            console.log("remove frequents", removedFrequents);
             if (removedFrequents.length > 0) {
                 removedFrequents.forEach(element => {
                     frequentArr.push(Object.assign({}, {frequent: element.trim()}, {
@@ -95,9 +93,6 @@ const MedicineAddEditBase = () => {
             //To Remove Meal times
             let currentMealTimes = getStringArrayVales(medicine.mealTimeDTOS ? medicine.mealTimeDTOS : [], 'mealTime');
             let removedMealTimes = _.difference(currentMealTimes, formMealTime);
-            console.log("currnetMeals", currentMealTimes);
-            console.log("formMealtimes", formMealTime);
-            console.log("remove meals", removedMealTimes);
             if (removedMealTimes.length > 0) {
                 removedMealTimes.forEach(element => {
                     mealTimeArr.push(Object.assign({}, {mealTime: element.trim()}, {
@@ -130,6 +125,7 @@ const MedicineAddEditBase = () => {
             let saveObject = Object.assign(
                 {},
                 {medicineID: data.formData.values.medicineID},
+                {routeOfAdmin: data.formData.values.routeOfAdmin},
                 {medicineName: data.formData.values.medicineName},
                 {doseDTOS: doseArr},
                 {frequentDTOS: frequentArr},
@@ -137,7 +133,7 @@ const MedicineAddEditBase = () => {
                 {tradeDTOS: tradeArr},
                 {status: data.formData.values.status}
             );
-            console.log(saveObject);
+            
             dispatch(Actions.saveOrUpdateMedicine(saveObject));
         }
     };
@@ -150,11 +146,17 @@ const MedicineAddEditBase = () => {
                         <CCardBody>
                             <MedicineAddEditFrom/>
                             <CRow>
-                                <CCol xs="12">
+                                <CCol xs="11">
                                     <CButton
-                                        // disabled={!data.formData.isValid}
+                                        hidden={!(data.medicine.medicineID)||((data.medicine.medicineID)&&(data.medicine.status==Constants.STATUS_CONST.INA))}
                                         onClick={() => {
-                                            console.log("here We save");
+                                            deleteMedicine();
+                                        }}
+                                        color="primary" className="float-right">Delete</CButton>
+                                </CCol>
+                                <CCol xs="1">
+                                    <CButton
+                                        onClick={() => {
                                             generateSaveObj();
                                         }}
                                         color="primary" className="float-right">Save</CButton>

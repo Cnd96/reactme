@@ -29,7 +29,7 @@ const PrescriptionMedicineList = () => {
                                     <th className="w-20-p text-align-center">Medicine</th>
                                     <th className="w-20-p text-align-center">Dose</th>
                                     <th className="w-20-p text-align-center">Meal Time</th>
-                                    <th className="w-20-p text-align-center">Frequent</th>
+                                    <th className="w-20-p text-align-center">Frequency</th>
                                     <th className="w-20-p text-align-center">Action</th>
                                 </tr>
                                 </thead>
