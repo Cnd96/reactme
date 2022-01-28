@@ -90,9 +90,7 @@ const PatientResult = ({createCheckUp}) => {
                                                 pagedPatientData &&
                                                 pagedPatientData.map((data, index) => {
                                                     return (
-                                                        <tr key={data.patientID}
-                                                            className={'clickable-data-row'}
-                                                        >
+                                                        <tr key={data.patientID}>
                                                             <td>{getFullName(data)}</td>
                                                             <td>{getCommonStringForGrid(data.patientCode)}</td>
                                                             <td>{getCommonStringForGrid(data.nicPassport)}</td>
@@ -104,10 +102,7 @@ const PatientResult = ({createCheckUp}) => {
                                                             <td>{getCommonStringForGrid(data.email)}</td>
                                                             <td>{getCommonStringForGrid(data.occupation)}</td>
                                                             <td className="w-11-p">
-                                                                <CTooltip
-                                                                    content={'View History'}
-                                                                    placement={'left-start'}
-                                                                >
+                                                                <CTooltip content={'View History'} placement={'left-start'} >
                                                                     <CButton
                                                                         type="button"
                                                                         onClick={(e) => {
@@ -123,10 +118,7 @@ const PatientResult = ({createCheckUp}) => {
                                                                     </CButton>
                                                                 </CTooltip>
 
-                                                                <CTooltip
-                                                                    content={'New Appointment'}
-                                                                    placement={'left-start'}
-                                                                >
+                                                                <CTooltip content={'New Appointment'} placement={'left-start'} >
                                                                     <CButton
                                                                         disabled={!data.patientID}
                                                                         onClick={(e) => {

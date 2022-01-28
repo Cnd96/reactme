@@ -14,7 +14,11 @@ const CheckupHistoryTableBase = () => {
                 <tbody>
                 {
                     checkupHistory.testAllTypes.map((testType, index) => {
-                        return <MedicalTestType testType={testType} index={index} key={index}/>
+                        return <MedicalTestType
+                            testType={testType}
+                            index={index}
+                            key={index}
+                        />
                     })
                 }
                 </tbody>

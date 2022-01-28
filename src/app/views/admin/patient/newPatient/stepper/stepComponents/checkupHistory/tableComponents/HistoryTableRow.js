@@ -12,18 +12,12 @@ const HistoryTableRow = ({measurementName, testType, index}) => {
                     {measurementName}
                 </td>
                 {
-                    checkupHistory.checkupHistoryFullData[testType][measurementName].map((data, i) => {
+                    // getting only the last 4 checkups
+                    checkupHistory.checkupHistoryFullData[testType][measurementName].slice(0,4).map((data, i) => {
                         return (
                             <React.Fragment key={i}>
                                 <td style={{fontWeight: 'bold', textAlign: 'end'}}>
-                                    <a href="#"
-                                       title={data.checkupDate}
-                                       style={{color: 'unset'}}
-                                       onClick={(e) => {
-                                           e.preventDefault();
-                                       }}>
-                                        {data.value}
-                                    </a>
+                                    {data.value}
                                 </td>
                                 <td style={{fontWeight: 'bold', textAlign: 'start', paddingLeft: '3px'}}>
                                     {data.measurementUnit}

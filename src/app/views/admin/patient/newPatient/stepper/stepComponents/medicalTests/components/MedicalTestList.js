@@ -7,6 +7,7 @@ import MedicalTestRecord from './MedicalTestRecord';
 import CheckupHistory from '../../checkupHistory/CheckupHistory';
 import Examination from './Examination';
 import ClinicalAppModal from './ClinicalAppModal';
+import CheckupHistoryByYear from '../../checkupHistory/CheckupHistoryByYear';
 
 
 const colors = ['#e57373','#f06292','#fff176','#dce775','#4dd0e1','#ffb74d','#64b5f6','#90caf9','#a1887f','#18ffff','#b0bec5','#bcaaa4','#80cbc4'];
@@ -211,16 +212,7 @@ const MedicalTestList = () => {
                 onToggle={toggleHistoryModal}
                 title='Patient History'
                 body={
-                    <>
-                        <CRow className='history-by-year'>
-                            <CCol sm="2" className='years-section p-2' style={{backgroundColor:'#f3f3f3', alignItems:'center'}}>
-                                2022
-                            </CCol>
-                            <CCol sm="10" className='history-section'>
-                                <CheckupHistory/>
-                            </CCol>
-                        </CRow>
-                    </>
+                    <CheckupHistoryByYear/>
                 }
                 footer={
                     <>

@@ -33,20 +33,10 @@ export function getMedicineValueList(data) {
     const request = dataService.post(selectPrescriptionTemplateAppEndpoints.getMedicineListOptions, data);
     return (dispatch, getState) => {
         request.then((response) => {
-				let dataToAdd = response.data.result;
-                if(dataToAdd.length>0){
-                    dataToAdd.forEach(d=>{
-                        if(d.tradeName){
-                            d.label= d.label + ' (' +d.tradeName+')'
-                            d.medicineName= d.medicineName + ' (' +d.medicineName+')'
-                            d.value= d.value + ' (' +d.value+')'
-                        }
-                    })
-                }
                 dispatch({
                     type: GET_MEDICINE_VALUE_LIST,
-                    payload: dataToAdd
-                });	
+                    payload: response.data.result
+                });
             }
         );
     };

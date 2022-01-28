@@ -156,7 +156,7 @@ export function getMedicineValueList(data) {
                             d.value= d.value + ' (' +d.value+')'
                         }
                     })
-                }
+                }                
                 dispatch({
                     type: GET_MEDICINE_VALUE_LIST,
                     payload: dataToAdd

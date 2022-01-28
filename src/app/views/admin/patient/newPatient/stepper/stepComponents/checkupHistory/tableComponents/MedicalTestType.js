@@ -6,7 +6,7 @@ const MedicalTestType = ({testType, index}) => {
     const checkupHistory = useSelector(({checkupHistory}) => checkupHistory.checkupHistory);
     return (
         <React.Fragment key={index}>
-            <tr>
+            <tr className='history-table-group-name'>
                 <th colSpan="10">
                     {testType}
                 </th>

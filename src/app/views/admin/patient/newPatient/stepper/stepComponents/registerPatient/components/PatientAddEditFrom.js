@@ -21,6 +21,7 @@ import {toDate} from "../../../../../../../../../utils/HealthTrackerUtils";
 import {getCitiesOptions} from "../../../../../../../../../utils/Cities";
 import { getCountriesOptions } from '../../../../../../../../../utils/Countries';
 import moment from 'moment';
+import CustomCheckBox from '../../../../../../../common/CustomCheckBox';
 
 class PatientAddEditFrom extends Component {
 
@@ -55,6 +56,8 @@ class PatientAddEditFrom extends Component {
             whatsappNumber: '',
             mobileNumber: '',
             comment: '',
+            isFirstVisit: false,
+            isDeceased: false,
             status: Constants.STATUS_CONST.ACT,
         }
     };
@@ -116,9 +119,6 @@ class PatientAddEditFrom extends Component {
             if (values.title === Constants.TITLE_CONST.MRS) {
                 values.civilStatus = Constants.CIVIL_STATUS_CONST.MARRIED
             }
-            else{
-                values.civilStatus = Constants.CIVIL_STATUS_CONST.SINGLE
-            }
         }
 
         let validate = customValidator(values, this.getValidations());
@@ -171,6 +171,8 @@ class PatientAddEditFrom extends Component {
 			qualification: patient.qualification ? patient.qualification : patientInit.qualification,
             city: patient.city ? patient.city : patientInit.city,
             country: patient.country ? patient.country : patientInit.country,
+            isFirstVisit: patient.isFirstVisit ? patient.isFirstVisit : patientInit.isFirstVisit,
+            isDeceased: patient.isDeceased ? patient.isDeceased : patientInit.isDeceased,
             status: patient.status ? patient.status : patientInit.status,
         };
         return initData;
@@ -231,10 +233,8 @@ class PatientAddEditFrom extends Component {
                         return (
                             <Form>
                                 <div className={'privilege-main-category-section'}>
-
                                     <div className={'privilege-category-name'}>
-                                        <h5>Basic Information - <span
-                                            className="color-green">{initValues.patientCode}</span></h5>
+                                        <h5>Basic Information - <span className="color-green">{initValues.patientCode}</span></h5>
                                     </div>
                                     <div className={'privilege-category-section'}>
                                         <CRow>
@@ -255,8 +255,9 @@ class PatientAddEditFrom extends Component {
                                                                 {
                                                                     getCommonTitleOptions(false).map((item) => {
                                                                         return (
-                                                                            <option key={item.key}
-                                                                                    value={item.key}>{item.value}</option>
+                                                                            <option key={item.key} value={item.key}>
+                                                                                {item.value}
+                                                                            </option>
                                                                         );
                                                                     })
                                                                 }
@@ -273,9 +274,7 @@ class PatientAddEditFrom extends Component {
 
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
-                                                    <CLabel htmlFor="firstName" className={'required'}>First
-                                                        Name</CLabel>
-
+                                                    <CLabel htmlFor="firstName" className={'required'}>First Name</CLabel>
                                                     <Field
                                                         type="text"
                                                         name="firstName"
@@ -283,11 +282,9 @@ class PatientAddEditFrom extends Component {
                                                         className={getInputFieldClassNames(touched.firstName, errors.firstName)}
                                                     />
                                                 </CFormGroup>
-
                                                 <ErrorMessage
                                                     name="firstName"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
 
@@ -301,18 +298,15 @@ class PatientAddEditFrom extends Component {
                                                         className={getInputFieldClassNames(touched.middleName, errors.middleName)}
                                                     />
                                                 </CFormGroup>
-
                                                 <ErrorMessage
                                                     name="middleName"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
 
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="lastName">Last Name</CLabel>
-
                                                     <Field
                                                         type="text"
                                                         name="lastName"
@@ -320,19 +314,15 @@ class PatientAddEditFrom extends Component {
                                                         className={getInputFieldClassNames(touched.lastName, errors.lastName)}
                                                     />
                                                 </CFormGroup>
-
                                                 <ErrorMessage
                                                     name="lastName"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
-
 
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="nicPassport">NIC/Passport</CLabel>
-
                                                     <Field
                                                         type="text"
                                                         name="nicPassport"
@@ -340,19 +330,15 @@ class PatientAddEditFrom extends Component {
                                                         className={getInputFieldClassNames(touched.nicPassport, errors.nicPassport)}
                                                     />
                                                 </CFormGroup>
-
                                                 <ErrorMessage
                                                     name="nicPassport"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
 
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
-                                                    <CLabel htmlFor="contactNo" className={'required'}>Mobile
-                                                        Phone</CLabel>
-
+                                                    <CLabel htmlFor="contactNo" className={'required'}>Mobile Phone</CLabel>
                                                     <Field
                                                         type="text"
                                                         name="contactNo"
@@ -360,32 +346,26 @@ class PatientAddEditFrom extends Component {
                                                         className={getInputFieldClassNames(touched.contactNo, errors.contactNo)}
                                                     />
                                                 </CFormGroup>
-
                                                 <ErrorMessage
                                                     name="contactNo"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
-                                            <CCol sm="12" md="6" lg="3">
 
+                                            <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="gender" className={'required'}>Gender</CLabel>
-                                                    <Field name="gender"
-                                                           className={getInputFieldClassNames(touched.gender, errors.gender)}
-                                                    >
+                                                    <Field name="gender" className={getInputFieldClassNames(touched.gender, errors.gender)} >
                                                         {({
                                                               field, // { name, value, onChange, onBlur }
                                                               form: {touched, errors}, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
                                                               meta,
                                                           }) => (
-
                                                             <CSelect custom name="gender" {...field}>
                                                                 {
                                                                     getCommonGenderOptions(false).map((item) => {
                                                                         return (
-                                                                            <option key={item.key}
-                                                                                    value={item.key}>{item.value}</option>
+                                                                            <option key={item.key} value={item.key}>{item.value}</option>
                                                                         );
                                                                     })
                                                                 }
@@ -402,9 +382,7 @@ class PatientAddEditFrom extends Component {
 
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
-                                                    <CLabel htmlFor="dateOfBirthStr" className={'required'}>Date of
-                                                        Birth</CLabel>
-
+                                                    <CLabel htmlFor="dateOfBirthStr" className={'required'}>Date of Birth</CLabel>
                                                     <Field
                                                         type="test"
                                                         name="dateOfBirthStr"
@@ -412,18 +390,15 @@ class PatientAddEditFrom extends Component {
                                                         component={FormikDatePicker}
                                                     />
                                                 </CFormGroup>
-
                                                 <ErrorMessage
                                                     name="dateOfBirthStr"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
 
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="age" className={'required'}>Age</CLabel>
-
                                                     <Field
                                                         type="number"
                                                         name="age"
@@ -431,35 +406,26 @@ class PatientAddEditFrom extends Component {
                                                         className={getInputFieldClassNames(touched.age, errors.age)}
                                                     />
                                                 </CFormGroup>
-
                                                 <ErrorMessage
                                                     name="age"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
 
                                             <CCol sm="12" md="6" lg="3">
-
                                                 <CFormGroup>
-                                                    <CLabel htmlFor="bloodGroup">Blood
-                                                        Group</CLabel>
-
-                                                    <Field name="bloodGroup"
-                                                           className={getInputFieldClassNames(touched.bloodGroup, errors.bloodGroup)}
-                                                    >
+                                                    <CLabel htmlFor="bloodGroup">Blood Group</CLabel>
+                                                    <Field name="bloodGroup" className={ getInputFieldClassNames(touched.bloodGroup, errors.bloodGroup) } >
                                                         {({
                                                               field, // { name, value, onChange, onBlur }
                                                               form: {touched, errors}, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
                                                               meta,
                                                           }) => (
-
                                                             <CSelect custom name="bloodGroup" {...field}>
                                                                 {
                                                                     Constants.BLOOD_GROUP.map((item) => {
                                                                         return (
-                                                                            <option key={item.key}
-                                                                                    value={item.key}>{item.value}</option>
+                                                                            <option key={item.key} value={item.key}>{item.value}</option>
                                                                         );
                                                                     })
                                                                 }
@@ -469,27 +435,20 @@ class PatientAddEditFrom extends Component {
                                                 </CFormGroup>
                                             </CCol>
 
-
                                             <CCol sm="12" md="6" lg="3">
-
                                                 <CFormGroup>
                                                     <CLabel htmlFor="civilStatus">Civil Status</CLabel>
-
-                                                    <Field name="civilStatus"
-                                                           className={getInputFieldClassNames(touched.civilStatus, errors.civilStatus)}
-                                                    >
+                                                    <Field name="civilStatus" className={ getInputFieldClassNames(touched.civilStatus, errors.civilStatus) } >
                                                         {({
                                                               field, // { name, value, onChange, onBlur }
                                                               form: {touched, errors}, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
                                                               meta,
                                                           }) => (
-
                                                             <CSelect custom name="civilStatus" {...field}>
                                                                 {
                                                                     getCivilStatusOptions(false).map((item) => {
                                                                         return (
-                                                                            <option key={item.key}
-                                                                                    value={item.key}>{item.value}</option>
+                                                                            <option key={item.key} value={item.key}>{item.value}</option>
                                                                         );
                                                                     })
                                                                 }
@@ -499,16 +458,13 @@ class PatientAddEditFrom extends Component {
                                                 </CFormGroup>
                                                 <ErrorMessage
                                                     name="civilStatus"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
-
 
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="email">Referred By</CLabel>
-
                                                     <Field
                                                         type="text"
                                                         name="referredBy"
@@ -516,13 +472,11 @@ class PatientAddEditFrom extends Component {
                                                         className={getInputFieldClassNames(touched.referredBy, errors.referredBy)}
                                                     />
                                                 </CFormGroup>
-
                                             </CCol>
 
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="email">Email</CLabel>
-
                                                     <Field
                                                         type="email"
                                                         name="email"
@@ -530,18 +484,15 @@ class PatientAddEditFrom extends Component {
                                                         className={getInputFieldClassNames(touched.email, errors.email)}
                                                     />
                                                 </CFormGroup>
-
                                                 <ErrorMessage
                                                     name="email"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
 
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="registeredDateStr" className={'required'}>Registered Date</CLabel>
-
                                                     <Field
                                                         type="test"
                                                         name="registeredDateStr"
@@ -549,11 +500,9 @@ class PatientAddEditFrom extends Component {
                                                         component={FormikDatePicker}
                                                     />
                                                 </CFormGroup>
-
                                                 <ErrorMessage
                                                     name="registeredDateStr"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
                                         </CRow>
@@ -561,33 +510,25 @@ class PatientAddEditFrom extends Component {
                                 </div>
 
                                 <div className={'privilege-main-category-section'}>
-
                                     <div className={'privilege-category-name'}>
                                         <h5>Other Information</h5>
                                     </div>
-
                                     <div className={'privilege-category-section'}>
-
                                         <CRow>
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="qualification">Qualification</CLabel>
-
-                                                    <Field name="qualification"
-                                                        className={getInputFieldClassNames(touched.qualification, errors.qualification)}
-                                                    >
+                                                    <Field name="qualification" className={getInputFieldClassNames(touched.qualification, errors.qualification)} >
                                                         {({
                                                             field, // { name, value, onChange, onBlur }
                                                             form: {touched, errors}, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
                                                             meta,
                                                         }) => (
-
                                                             <CSelect custom name="qualification" {...field}>
                                                                 {
                                                                     Constants.QUALIFICATIONS.map((item) => {
                                                                         return (
-                                                                            <option key={item.key}
-                                                                                    value={item.key}>{item.value}</option>
+                                                                            <option key={item.key} value={item.key} >{item.value}</option>
                                                                         );
                                                                     })
                                                                 }
@@ -596,10 +537,10 @@ class PatientAddEditFrom extends Component {
                                                     </Field>
                                                 </CFormGroup>
                                             </CCol>
+
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="occupation">Job Description</CLabel>
-
                                                     <Field
                                                         type="text"
                                                         name="occupation"
@@ -607,18 +548,15 @@ class PatientAddEditFrom extends Component {
                                                         className={getInputFieldClassNames(touched.occupation, errors.occupation)}
                                                     />
                                                 </CFormGroup>
-
                                                 <ErrorMessage
                                                     name="occupation"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
 
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="companyName">Company Name</CLabel>
-
                                                     <Field
                                                         type="text"
                                                         name="companyName"
@@ -626,18 +564,15 @@ class PatientAddEditFrom extends Component {
                                                         className={getInputFieldClassNames(touched.companyName, errors.companyName)}
                                                     />
                                                 </CFormGroup>
-
                                                 <ErrorMessage
                                                     name="companyName"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
 
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="department">Department</CLabel>
-
                                                     <Field
                                                         type="text"
                                                         name="department"
@@ -645,19 +580,15 @@ class PatientAddEditFrom extends Component {
                                                         className={getInputFieldClassNames(touched.department, errors.department)}
                                                     />
                                                 </CFormGroup>
-
                                                 <ErrorMessage
                                                     name="department"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
 
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
-                                                    <CLabel htmlFor="addressLine1">Address Line
-                                                        1</CLabel>
-
+                                                    <CLabel htmlFor="addressLine1">Address Line 1</CLabel>
                                                     <Field
                                                         type="text"
                                                         name="addressLine1"
@@ -665,11 +596,9 @@ class PatientAddEditFrom extends Component {
                                                         className={getInputFieldClassNames(touched.addressLine1, errors.addressLine1)}
                                                     />
                                                 </CFormGroup>
-
                                                 <ErrorMessage
                                                     name="addressLine1"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
 
@@ -683,19 +612,15 @@ class PatientAddEditFrom extends Component {
                                                         className={getInputFieldClassNames(touched.addressLine2, errors.addressLine2)}
                                                     />
                                                 </CFormGroup>
-
                                                 <ErrorMessage
                                                     name="addressLine2"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
-
 
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="addressLine3">Address Line 3</CLabel>
-
                                                     <Field
                                                         type="text"
                                                         name="addressLine3"
@@ -703,18 +628,15 @@ class PatientAddEditFrom extends Component {
                                                         className={getInputFieldClassNames(touched.addressLine3, errors.addressLine3)}
                                                     />
                                                 </CFormGroup>
-
                                                 <ErrorMessage
                                                     name="addressLine3"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
 
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="city">City</CLabel>
-
                                                     <Field name="city"
                                                            className={getInputFieldClassNames(touched.city, errors.city)}
                                                     >
@@ -723,13 +645,11 @@ class PatientAddEditFrom extends Component {
                                                               form: {touched, errors}, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
                                                               meta,
                                                           }) => (
-
                                                             <CSelect custom name="city" {...field}>
                                                                 {
                                                                     getCitiesOptions(false).map((item) => {
                                                                         return (
-                                                                            <option key={item.key}
-                                                                                    value={item.key}>{item.value.trim()}</option>
+                                                                            <option key={item.key} value={item.key}>{item.value.trim()}</option>
                                                                         );
                                                                     })
                                                                 }
@@ -739,8 +659,7 @@ class PatientAddEditFrom extends Component {
                                                 </CFormGroup>
                                                 <ErrorMessage
                                                     name="city"
-                                                    render={(msg) => <div
-                                                        className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
 
@@ -760,9 +679,7 @@ class PatientAddEditFrom extends Component {
                                                                 {
                                                                     getCountriesOptions(false).map((item) => {
                                                                         return (
-                                                                            <option key={item.key} value={item.key}>
-                                                                                {item.value}
-                                                                            </option>
+                                                                            <option key={item.key} value={item.key}> {item.value} </option>
                                                                         );
                                                                     })
                                                                 }
@@ -772,8 +689,7 @@ class PatientAddEditFrom extends Component {
                                                 </CFormGroup>
                                                 <ErrorMessage
                                                     name="country"
-                                                    render={(msg) => <div
-                                                    className={'formik-error-message'}>{msg}</div>}
+                                                    render={ (msg) => <div className={'formik-error-message'}>{msg}</div> }
                                                 />
                                             </CCol>
                                         </CRow>
@@ -782,18 +698,14 @@ class PatientAddEditFrom extends Component {
 
 
                                 <div className={'privilege-main-category-section'}>
-
                                     <div className={'privilege-category-name'}>
                                         <h5>Other Contacts</h5>
                                     </div>
-
                                     <div className={'privilege-category-section'}>
-
                                         <CRow>
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="landLineNumber">Land Line Number</CLabel>
-
                                                     <Field
                                                         type="text"
                                                         name="landLineNumber"
@@ -801,13 +713,11 @@ class PatientAddEditFrom extends Component {
                                                         className={getInputFieldClassNames(touched.landLineNumber, errors.landLineNumber)}
                                                     />
                                                 </CFormGroup>
-
                                             </CCol>
 
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="mobileNumber">Mobile Number (2)</CLabel>
-
                                                     <Field
                                                         type="text"
                                                         name="mobileNumber"
@@ -820,7 +730,6 @@ class PatientAddEditFrom extends Component {
                                             <CCol sm="12" md="6" lg="3">
                                                 <CFormGroup>
                                                     <CLabel htmlFor="whatsappNumber">Whatsapp Number</CLabel>
-
                                                     <Field
                                                         type="text"
                                                         name="whatsappNumber"
@@ -842,7 +751,6 @@ class PatientAddEditFrom extends Component {
                                         <CRow>
                                             <CCol sm="12">
                                                 <CFormGroup>
-                                                    {/*<CLabel htmlFor="comment">Comment</CLabel>*/}
                                                     <Field
                                                         rows="5" cols="120"
                                                         name="comment"
@@ -856,6 +764,25 @@ class PatientAddEditFrom extends Component {
                                         </CRow>
                                     </div>
                                 </div>
+                                
+                                {/* MAHESH BROO OR CHAMAL BRO>> Menna methana meka save wenne kohomada balala danko*/}
+                                <CustomCheckBox
+                                    id={'isFirstVisit'}
+                                    name={'isFirstVisit'}
+                                    value={{includeSocialHabits: true}}
+                                    label={'Is the first visit'}
+                                    checked={this.props.patient.isFirstVisit}
+                                    onCheckChange={() => console.log('Is the first visit')}
+                                />
+                                <CustomCheckBox
+                                    id={'isDeceased'}
+                                    name={'isDeceased'}
+                                    value={{includeSocialHabits: true}}
+                                    label={'Deceased'}
+                                    checked={this.props.patient.isDeceased}
+                                    onCheckChange={() => console.log('isDeceased')}
+                                />
+                                
                             </Form>
                         );
                     }}
