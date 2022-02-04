@@ -113,7 +113,8 @@ const PrescriptionTemplateMedicineRow = ({dataRow, index}) => {
             dispatch(Action.addTemplateMedicine({
                 uuid: dataRow.uuid,
                 medicineID: newValue.medicineID,
-                medicineName: newValue.label
+                medicineName: newValue.label,
+                routeOfAdmin: newValue.routeOfAdmin
             }))
         }
     };

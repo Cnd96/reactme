@@ -10,6 +10,7 @@ import {getStorageItem} from "../../../../../../../../utils/StorageUtils";
 import Constants from "../../../../../../../../utils/Constants";
 import {trimData} from "../../../../../../../../utils/DataExtractHelper";
 import * as CheckupAction from "../createCheckUp/store/action/checkup.app.add.edit.action";
+import CheckupHistoryDetails from '../checkupHistory/CheckupHistoryDetails';
 
 const SelectPrescription = ({setPageIndex, nextPageIndex, prevPageIndex}) => {
 
@@ -37,7 +38,11 @@ const SelectPrescription = ({setPageIndex, nextPageIndex, prevPageIndex}) => {
             {...data.prescription},
             data.prescriptionTemplateID ? {prescriptionTemplateID: data.prescriptionTemplateID} : {},
             {addedTemplateMedicine: data.addedTemplateMedicine});
-
+        if(saveObj.addedTemplateMedicine){
+            saveObj.addedTemplateMedicine = saveObj.addedTemplateMedicine.filter(function( obj ) {
+                return obj.medicineID != undefined && obj.medicineID != '';
+            });
+        }
         dispatch(Actions.saveOrUpdateCheckupWithPrescription(trimData(saveObj))).then(response => {
             dispatch(CheckupAction.onSetCheckup(response.payload));
             isNext && setPageIndex(nextPageIndex);
@@ -48,9 +53,11 @@ const SelectPrescription = ({setPageIndex, nextPageIndex, prevPageIndex}) => {
         <div>
             <div className='d-flex flex-row flex-wrap  justify-content-end'>
                 <PrevButton isValid={true} onClickHandler={ () => setPageIndex(prevPageIndex) } />
-                <SaveButton isValid={true} onClickHandler={ () => saveFunction(false) } />
+                {/* <SaveButton isValid={true} onClickHandler={ () => saveFunction(false) } /> */}
                 <NextButton isValid={true} onClickHandler={ () => saveFunction(true) } />
             </div>
+            <CheckupHistoryDetails/>
+            <br></br>
             <PrescriptionTemplate/>
             <PrescriptionMedicineList/>
         </div>

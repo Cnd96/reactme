@@ -82,6 +82,9 @@ const Prescription = React.forwardRef((props, ref) => {
                                     <th>
                                         Frequency
                                     </th>
+                                    <th>
+                                        Route of Admin
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -93,6 +96,7 @@ const Prescription = React.forwardRef((props, ref) => {
                                                 <td>{data.dose}</td>
                                                 <td>{data.mealTime}</td>
                                                 <td>{data.frequent}</td>
+                                                <td>{data.routeOfAdmin}</td>
                                             </tr>
                                         )
                                     })
