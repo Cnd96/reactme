@@ -100,7 +100,7 @@ const MedicalTestRecordAddEditForm = () => {
                         <Form>
                             <CRow>
 
-                                <CCol sm="12" md="6" lg="3">
+                                <CCol sm="12" md="6" lg="4">
                                     <CFormGroup>
                                         <CLabel htmlFor="" className={'required'}>Medical Test Type</CLabel>
                                         <Field name="medicalTestTypeID"
@@ -135,7 +135,7 @@ const MedicalTestRecordAddEditForm = () => {
                                     />
                                 </CCol>
 
-                                <CCol sm="12" md="6" lg="3">
+                                <CCol sm="12" md="6" lg="4">
                                     <CFormGroup>
                                         <CLabel htmlFor="measurementName" className={'required'}>Measurement
                                             Name</CLabel>
@@ -155,7 +155,7 @@ const MedicalTestRecordAddEditForm = () => {
                                     />
                                 </CCol>
 
-                                <CCol sm="12" md="6" lg="3">
+                                <CCol sm="12" md="6" lg="4">
                                     <CFormGroup>
                                         <CLabel htmlFor="status" className={'required'}>Status</CLabel>
 
@@ -188,7 +188,7 @@ const MedicalTestRecordAddEditForm = () => {
                                     />
                                 </CCol>
                                 
-                                <CCol sm="12" md="6" lg="3">
+                                <CCol sm="12" md="6" lg="6">
                                     <CFormGroup>
                                         <CLabel htmlFor="measurementUnit">Measurement
                                             Units</CLabel>
@@ -201,25 +201,90 @@ const MedicalTestRecordAddEditForm = () => {
                                             placeholder={'Measurement Unit'}
                                             className={getInputFieldClassNames(touched.measurementUnit, errors.measurementUnit)}
                                         />
+                                        <Field
+                                            type="text"
+                                            name="rangeForm"
+                                            placeholder={'Range From'}
+                                            className={getInputFieldClassNames(touched.measurementUnit, errors.measurementUnit)}
+                                        />
+                                        <Field
+                                            type="text"
+                                            name="rangeTo"
+                                            placeholder={'Range To'}
+                                            className={getInputFieldClassNames(touched.measurementUnit, errors.measurementUnit)}
+                                        />
                                          <CButton
                                             onClick={()=>{
                                                 let tempData = {... data.formData.values}
                                                 setFieldValue('measurementUnit','')
-                                                setFieldValue('measurementUnits',[...tempData.measurementUnits,tempData.measurementUnit])
+                                                setFieldValue('rangeForm','')
+                                                setFieldValue('rangeTo','')
+                                                setFieldValue('measurementUnits',[...tempData.measurementUnits,{measurementUnit:tempData.measurementUnit,rangeFrom:tempData.rangeForm,rangeTo:tempData.rangeTo}])
                                             }}
                                             color="success" className="float-right">Add</CButton>
                                         </CInputGroup>
                                     </CFormGroup>
                                 </CCol>
                             </CRow>
-                            <CRow>
-                                <CCol  sm="3"></CCol>
-                                <CCol  sm="3"></CCol>
-                                <CCol  sm="3"></CCol>
-                                <CCol  sm="3">
+
+                            {data.formData.values ? 
+                                data.formData.values.measurementUnits.map((m) => 
+                                <div key={m.measurementUnit}>
+                                    <CRow>
+                                        <CCol  sm="2"><CLabel htmlFor="measurementUnit">{m.measurementUnit}</CLabel></CCol>
+                                        <CCol  sm="2"><CLabel htmlFor="rangeFrom">{m.rangeFrom}</CLabel></CCol>
+                                        <CCol  sm="2"><CLabel htmlFor="rangeTo">{m.rangeTo}</CLabel></CCol>
+                                        <CButton onClick={(e)=>{
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            let tempData = {... data.formData.values}
+                                            let tempMeasurementUnits = [...tempData.measurementUnits];
+                                            let tempIndex = tempMeasurementUnits.map(function(e) { return e.measurementUnit; }).indexOf(m.measurementUnit);
+                                            if (tempIndex !== -1) {
+                                                tempMeasurementUnits.splice(tempIndex, 1);
+                                                }
+                                            setFieldValue('measurementUnits',[...tempMeasurementUnits])
+                                        }} color='danger' style={{marginLeft:'5px'}}>X</CButton>
+                                    </CRow> 
+                                    <br></br>
+                                </div>)
+                                
+                            :data.medicalTestRecord.measurementUnits ? 
+                            data.medicalTestRecord.measurementUnits.map((m) => 
+                                <div key={m.measurementUnit}>
+                                    <CRow>
+                                        <CCol  sm="2"><CLabel htmlFor="measurementUnit">{m.measurementUnit}</CLabel></CCol>
+                                        <CCol  sm="2"><CLabel htmlFor="rangeFrom">{m.rangeFrom}</CLabel></CCol>
+                                        <CCol  sm="2"><CLabel htmlFor="rangeTo">{m.rangeTo}</CLabel></CCol>
+                                        <CButton onClick={(e)=>{
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                let tempData = {... data.medicalTestRecord}
+                                                console.log("tt ",tempData)
+                                                let tempMeasurementUnits = [...tempData.measurementUnits];
+                                                let tempIndex = tempMeasurementUnits.map(function(e) { return e.measurementUnit; }).indexOf(m.measurementUnit);
+                                                if (tempIndex !== -1) {
+                                                    tempMeasurementUnits.splice(tempIndex, 1);
+                                                }
+                                                setFieldValue('measurementUnits',[...tempMeasurementUnits])
+                                            }} color='danger' style={{marginLeft:'5px'}}>X</CButton>
+                                    </CRow> 
+                                    <br></br>
+                                </div>)
+                            :''}
+                            {/* <CRow> */}
+                                
+                                {/* <CCol  sm="4">
                                     <ul  >
                                         {data.formData.values ? 
-                                        data.formData.values.measurementUnits.map((measurementUnit) => <li htmlFor="measurementUnit"  style={{marginBottom:'10px',fontSize:'15px'}} key={measurementUnit}>{measurementUnit}
+                                        data.formData.values.measurementUnits.map((m) => <li htmlFor="measurementUnit"  style={{marginBottom:'10px',fontSize:'15px'}} key={m.unit}>{m.unit}
+                                           
+                                            <Field
+                                                type="text"
+                                                name="m.rangeFrom"
+                                                placeholder={'Measurement Name'}
+                                                className={getInputFieldClassNames(touched.measurementName, errors.measurementName)}
+                                            />
                                             <CButton onClick={(e)=>{
                                                 e.preventDefault();
                                                 e.stopPropagation();
@@ -247,8 +312,8 @@ const MedicalTestRecordAddEditForm = () => {
                                             }} color='danger' style={{marginLeft:'5px'}}>X</CButton>
                                         </li>):''}
                                     </ul>
-                                </CCol>
-                            </CRow>
+                                </CCol> */}
+                            {/* </CRow> */}
                         </Form>
                     );
                 }}

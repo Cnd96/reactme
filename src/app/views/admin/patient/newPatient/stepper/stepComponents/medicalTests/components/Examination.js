@@ -13,7 +13,7 @@ const Examination = ({medicalTestRecord,onValueChange,onUnitChange}) => {
 
     const setValue = () => {
         let value = '';
-        let measureUnit = medicalTestRecord.measurementUnits ? medicalTestRecord.measurementUnits[0]:'';
+        let measureUnit = medicalTestRecord.measurementUnits.length>0 ? medicalTestRecord.measurementUnits[0].measurementUnit:'';
         setFormValue({...formValue, value: value, measureUnit: measureUnit});
     };
 
@@ -45,10 +45,10 @@ const Examination = ({medicalTestRecord,onValueChange,onUnitChange}) => {
 
     return (
         <CRow >
-            <CCol sm="12" md="6" lg="5" >
+            <CCol sm="12" md="6" lg="4" >
                 <h6 style={{textAlign: 'right',paddingTop:'10px'}}>{medicalTestRecord.measurementName}</h6> 
             </CCol>
-            <CCol sm="12" md="6" lg="3" >
+            <CCol sm="12" md="6" lg="2" >
                 <CFormGroup>
                     <CInput
                         type="text"
@@ -66,7 +66,7 @@ const Examination = ({medicalTestRecord,onValueChange,onUnitChange}) => {
                             {
                                 medicalTestRecord.measurementUnits.map((item) => {
                                     return (
-                                    <option key={item} value={item}>{item}</option>
+                                    <option key={item.measurementUnit} value={item.measurementUnit}>{item.measurementUnit}</option>
                                     );
                                 })
                             }

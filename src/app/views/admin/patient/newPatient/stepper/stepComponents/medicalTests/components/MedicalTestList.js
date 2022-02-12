@@ -128,7 +128,7 @@ const MedicalTestList = () => {
     return (
         <div>
             <CRow>
-                <CCol sm="12" md="6" lg="5">
+                <CCol sm="12" md="6" lg="6">
                     <div className='medicalTestTypeMenu' >
                         {examination!=undefined && 
                             <div style={{backgroundColor:`${colors[0]}`}}  onClick={()=>onChange(0)} className='medicalTestTypeCard'  >
@@ -152,10 +152,10 @@ const MedicalTestList = () => {
                                 {examination.weight!=undefined && <Examination onValueChange={(e)=>onWeightChange(e)} onUnitChange={(e)=>onUnitChangeWeight(e)} medicalTestRecord={examination.weight}/>}
                                 {examination.bmi!=undefined &&
                                     <CRow >
-                                        <CCol sm="12" md="6" lg="5" >
+                                        <CCol sm="12" md="6" lg="4" >
                                             <h6 style={{textAlign: 'right',paddingTop:'10px'}}>BMI</h6> 
                                         </CCol>
-                                        <CCol sm="12" md="6" lg="3" >
+                                        <CCol sm="12" md="6" lg="2" >
                                             <CFormGroup>
                                                 <CInput
                                                     type="text"
@@ -170,7 +170,6 @@ const MedicalTestList = () => {
                                 {   examination.medicalTestRecords &&
                                     examination.medicalTestRecords.map((record,index)=>
                                     <MedicalTestRecord key={index} medicalTestRecord={record}/>
-                                        
                                     )
                                 }
                             </div>
@@ -192,7 +191,7 @@ const MedicalTestList = () => {
                     </div>
                 </CCol>
                 
-                <CCol sm="12" md="6" lg="7">
+                <CCol sm="12" md="6" lg="6">
                     <br/>
                         <CButton
                             color="secondary"

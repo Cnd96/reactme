@@ -9,10 +9,13 @@ const MedicalTestRecordNew = ({medicalTestRecord}) => {
     let dispatch = useDispatch();
     const checkupData = useSelector(({checkup}) => checkup.checkupAddEdit);
     const [formValue, setFormValue] = useState({value: '', measureUnit: ''});
+    const [range,setrange] =useState('')
 
     const setValue = () => {
         let value = '';
-        let measureUnit = medicalTestRecord.measurementUnits ? medicalTestRecord.measurementUnits[0]:'';
+        let measureUnit = medicalTestRecord.measurementUnits.length>0 ? medicalTestRecord.measurementUnits[0].measurementUnit:'';
+        let range = medicalTestRecord.measurementUnits.length>0 ? (medicalTestRecord.measurementUnits[0].rangeFrom!=''&&medicalTestRecord.measurementUnits[0].rangeTo!='') ? medicalTestRecord.measurementUnits[0].rangeFrom+'-'+medicalTestRecord.measurementUnits[0].rangeTo:'':'';
+        setrange(range)
         setFormValue({...formValue, value: value, measureUnit: measureUnit});
     };
 
@@ -28,6 +31,14 @@ const MedicalTestRecordNew = ({medicalTestRecord}) => {
 
     const onChangeUnit = (event) => {
         const target = event.target;
+        if(medicalTestRecord.measurementUnits.length>0 ){
+            let obj = medicalTestRecord.measurementUnits.find(o => o.measurementUnit == target.value); 
+            if(obj.rangeFrom!= '' && obj.rangeTo!=''){
+                let range = obj.rangeFrom + '-' + obj.rangeTo
+                setrange(range)
+            }
+        }
+       
         dispatch(Actions.onSetMedicalResult({
             medicalTestRecordID: medicalTestRecord.medicalTestRecordID,
             ...formValue,
@@ -42,10 +53,10 @@ const MedicalTestRecordNew = ({medicalTestRecord}) => {
 
     return (
         <CRow >
-            <CCol sm="12" md="6" lg="5" >
+            <CCol sm="12" md="6" lg="4" >
                 <h6 style={{textAlign: 'right',paddingTop:'10px'}}>{medicalTestRecord.measurementName}</h6> 
             </CCol>
-            <CCol sm="12" md="6" lg="3" >
+            <CCol sm="12" md="6" lg="2" >
                 <CFormGroup>
                     <CInput
                         type="text"
@@ -63,13 +74,17 @@ const MedicalTestRecordNew = ({medicalTestRecord}) => {
                             {
                                 medicalTestRecord.measurementUnits.map((item) => {
                                     return (
-                                    <option key={item} value={item}>{item}</option>
+                                    <option key={item.measurementUnit} value={item.measurementUnit}>{item.measurementUnit}</option>
                                     );
                                 })
                             }
                         </CSelect>
                     }   
                 </CFormGroup> 
+            </CCol>
+
+            <CCol sm="12" md="6" lg="3" >
+                <h6 style={{textAlign: 'left',paddingTop:'10px'}}>{range}</h6> 
             </CCol>
         </CRow>
     );

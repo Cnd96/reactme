@@ -28,6 +28,7 @@ const MedicalTestRecordAddEditApp = () => {
 
     const saveOrUpdateMedicalTestType = () => {
         let saveObj = trimData(data.formData.values);
+        console.log("sss",saveObj)
         dispatch(Action.saveOrUpdateMedicalTestRecord(saveObj));
     };
 

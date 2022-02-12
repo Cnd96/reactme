@@ -10,7 +10,7 @@ export function hasUserPrivilege(privilege) {
         return false;
     }
 
-    return _.indexOf(Constants.LOGGED_IN_USER.privileges, privilege.trim()) !== -1;
+    return _.indexOf(Constants.LOGGED_IN_USER.user.privileges, privilege.trim()) !== -1;
 }
 
 export function hasAnyUserPrivilege(privileges) {
